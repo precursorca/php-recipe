@@ -1,7 +1,7 @@
 # php-recipe
 ## Installing and code-signing PHP
 
-### Homebrew
+## Homebrew
 
 First install Homebrew using the formula:
 
@@ -21,7 +21,7 @@ Then you can check for install issues by running:
 
 **On Intel Macs Homebrew can be found at:**
 
-`/usr/local/`
+`/usr/local/homebrew`
 
 **And on Apple Silicon Macs Homebrew lives at:**
 
@@ -37,7 +37,7 @@ To remove Homebrew and all the packages it has installed use:
 
 
 
-### PHP
+## PHP
 
 First add the PHP formulae:
 
@@ -74,7 +74,7 @@ The php.ini and php-fpm.ini file can be found in:
     **ARM**
     `/opt/homebrew/etc/php/7.4/`
     **Intel**
-    `/usr/local/homebrew/etc/php/7.4/`
+    `/usr/local/etc/php/7.4/`
 
 php@7.4 is keg-only, which means it was not symlinked into /opt/homebrew,
 because this is an alternate version of another formula.
@@ -89,22 +89,25 @@ If you need to have php@7.4 first in your PATH, run:
   
    **Intel**
    
-  `echo 'export PATH="/usr/local/homebrew/opt/php@7.4/bin:$PATH"' >> ~/.zshrc`
+  `echo 'export PATH="/usr/local/cellar/php@7.4/bin:$PATH"' >> ~/.zshrc`
   
-  `echo 'export PATH="/usr/local/homebrew/opt/php@7.4/sbin:$PATH"' >> ~/.zshrc`
+  `echo 'export PATH="/usr/local/cellar/php@7.4/sbin:$PATH"' >> ~/.zshrc`
 
 For compilers to find php@7.4 you may need to set:
   **ARM**
   
   `export LDFLAGS="-L/opt/homebrew/opt/php@7.4/lib"`
+  
   `export CPPFLAGS="-I/opt/homebrew/opt/php@7.4/include"`
   
    **Intel**
    
-  `export LDFLAGS="-L/usr/local/homebrew/opt/php@7.4/lib"`
-  `export CPPFLAGS="-I/usr/local/homebrew/opt/php@7.4/include"`
+  `export LDFLAGS="-L/usr/local/cellar/php@7.4/lib"`
+  
+  `export CPPFLAGS="-I/usr/local/cellar/php@7.4/include"`
   
 To restart shivammathur/php/php@7.4 after an upgrade:
+
   `brew services restart shivammathur/php/php@7.4`
   
 Or, if you don't want/need a background service you can just run:
@@ -112,6 +115,10 @@ Or, if you don't want/need a background service you can just run:
   **ARM**
   
   `/opt/homebrew/opt/php@7.4/sbin/php-fpm --nodaemonize`
+
+  **Intel**
+  
+  `/usr/local/opt/php@7.4/sbin/php-fpm --nodaemonize`
 
 
 Restart Terminal and check the version:
@@ -129,11 +136,11 @@ NB The php.ini and php-fpm.ini file can be found in:
     
    **Intel**
    
-    `/usr/local/homebrew/etc/php/7.4/`
+    `/usr/local/etc/php/7.4/`
     
 
 
-### Apache
+## Apache
 
 To enable PHP in Apache add the following to httpd.conf and restart Apache:
 
@@ -143,11 +150,13 @@ To enable PHP in Apache add the following to httpd.conf and restart Apache:
     
    **Intel**
     
-   `LoadModule php7_module /usr/local/homebrew/opt/php@7.4/lib/httpd/modules/libphp7.so`
+   `LoadModule php7_module /usr/local/opt/php@7.4/lib/httpd/modules/libphp7.so`
    
     
    `<FilesMatch \.php$>
+   
        SetHandler application/x-httpd-php
+       
    </FilesMatch>`
 
 Finally, check DirectoryIndex includes index.php
@@ -166,7 +175,7 @@ The php.ini and php-fpm.ini file can be found in:
     
    **Intel**
     
-    `/usr/local/homebrew/etc/php/7.4/`
+    `/usr/local/etc/php/7.4/`
 
 If you have not code-signed php yet you will see this error:
 
@@ -176,7 +185,7 @@ httpd: Syntax error on line 188 of /private/etc/apache2/httpd.conf:
 Code signing absent - not loading module at: /opt/homebrew/opt/php@7.4/lib/httpd/modules/libphp7.so
 
 
-### CodeSigning PHP
+## CodeSigning PHP
 You can check the location of your php with this command:
 
 `grep -nir "^loadmodule.*php" /etc/apache2`
@@ -198,11 +207,15 @@ Eg:
 
 **ARM**
 
-`codesign --force --options runtime --deep --sign "Developer ID Application: Example.com (X3Q1C2345)"` `"/opt/homebrew/opt/php@7.4/lib/httpd/modules/libphp7.so"`
+`codesign --force --options runtime --deep --sign "Developer ID Application: Example.com (X3Q1C2345)"`
+
+`"/opt/homebrew/opt/php@7.4/lib/httpd/modules/libphp7.so"`
 
 **Intel**
 
-`codesign --force --options runtime --deep --sign "Developer ID Application: Example.com (X3Q1C2345)"` `"/usr/local/Cellar/php@7.4/7.4.27/lib/httpd/modules/libphp7.so"`
+`codesign --force --options runtime --deep --sign "Developer ID Application: Example.com (X3Q1C2345)"`
+
+`"/usr/local/Cellar/php@7.4/7.4.27/lib/httpd/modules/libphp7.so"`
 
 
 
@@ -225,8 +238,7 @@ Add the code signing certificate name after the module path in apache's http.con
 
 **Intel**
 
-`LoadModule php7_module /usr/local/Cellar/php@7.4/7.4.27/lib/httpd/modules/libphp7.so "Developer ID Application: Example.com (X3Q1C2345)"`
-
+`LoadModule php7_module /usr/local/opt/php@7.4/7.4.27/lib/httpd/modules/libphp7.so "Developer ID Application: Example.com (X3Q1C2345)"`
 
 
 Restart Apache:
@@ -247,6 +259,7 @@ NB. The file should be removed after testing for security reasons
 `<?php
 
 // Show all information, defaults to INFO_ALL
+
 phpinfo();
 
 ?>`
@@ -256,15 +269,15 @@ And view it at:
 http://localhost/phpinfo.php
 
 
-### Backup and Restore
+## Backup and Restore
 
 The Apache HTTP.conf file could get overwritten by Apple on security or OS updates.
 
 You can backup and restore the http.conf file with the commands in my reverse proxy tutorial.
-Of you can do it manually.
+Or you can do it manually.
 
 
-To backup:
+**To backup:**
 
 `#!/bin/zsh
 #Set the variables
@@ -273,7 +286,7 @@ APACHE2_LOC="/private/etc/apache2"
 # Backup httpd.conf
 sudo cp "${APACHE2_LOC}/${HTTPD_FILE}" "${BACKUP_LOC}${HTTPD_FILE}"`
 
-To restore it after the update using:
+**To restore it after the update using:**
 
 `#!/bin/zsh
 #Set the variables
