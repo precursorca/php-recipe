@@ -279,20 +279,24 @@ Or you can do it manually.
 
 **To backup:**
 
-`#!/bin/zsh
+```
+#!/bin/zsh
 #Set the variables
 THEFILE="/private/etc/apache2/httpd.conf"
 APACHE2_LOC="/private/etc/apache2"
 # Backup httpd.conf
-sudo cp "${APACHE2_LOC}/${HTTPD_FILE}" "${BACKUP_LOC}${HTTPD_FILE}"`
+sudo cp "${APACHE2_LOC}/${HTTPD_FILE}" "${BACKUP_LOC}${HTTPD_FILE}"
+```
 
 **To restore it after the update using:**
 
-`#!/bin/zsh
+```
+#!/bin/zsh
 #Set the variables
 THEFILE="/private/etc/apache2/httpd.conf"
 APACHE2_LOC="/private/etc/apache2"
 #Restore httpd.conf"
 sudo cp "${BACKUP_LOC}${HTTPD_FILE}" "${APACHE2_LOC}/${HTTPD_FILE}"
-sudo chown root "${APACHE2_LOC}/${HTTPD_FILE}"`
+sudo chown root "${APACHE2_LOC}/${HTTPD_FILE}"
+```
 
