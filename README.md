@@ -84,11 +84,13 @@ If you need to have php@7.4 first in your PATH, run:
   **ARM**
   
   `echo 'export PATH="/opt/homebrew/opt/php@7.4/bin:$PATH"' >> ~/.zshrc`
+  
   `echo 'export PATH="/opt/homebrew/opt/php@7.4/sbin:$PATH"' >> ~/.zshrc`
   
    **Intel**
    
   `echo 'export PATH="/usr/local/homebrew/opt/php@7.4/bin:$PATH"' >> ~/.zshrc`
+  
   `echo 'export PATH="/usr/local/homebrew/opt/php@7.4/sbin:$PATH"' >> ~/.zshrc`
 
 For compilers to find php@7.4 you may need to set:
@@ -218,6 +220,7 @@ Add the code signing certificate name after the module path in apache's http.con
 **ARM**
 
 `LoadModule php7_module /opt/homebrew/opt/php@7.4/lib/httpd/modules/libphp7.so "Example.com (X3Q1C2345)"`
+
 `LoadModule php7_module /opt/homebrew/opt/php@7.4/lib/httpd/modules/libphp7.so "Developer ID Application: Example.com (X3Q1C2345)"`
 
 **Intel**
