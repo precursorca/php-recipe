@@ -63,9 +63,11 @@ To enable PHP in Apache add the following to httpd.conf and restart Apache:
 
     `LoadModule php7_module /opt/homebrew/opt/php@7.4/lib/httpd/modules/libphp7.so`
 
-    `<FilesMatch \.php$>
+    ```
+    <FilesMatch \.php$>
         SetHandler application/x-httpd-php
-    </FilesMatch>`
+    </FilesMatch>
+    ```
 
 Finally, check DirectoryIndex includes index.php
     `DirectoryIndex index.php index.html`
@@ -96,15 +98,17 @@ If you need to have php@7.4 first in your PATH, run:
 For compilers to find php@7.4 you may need to set:
   **ARM**
   
-  `export LDFLAGS="-L/opt/homebrew/opt/php@7.4/lib"`
-  
-  `export CPPFLAGS="-I/opt/homebrew/opt/php@7.4/include"`
+  ```
+  export LDFLAGS="-L/opt/homebrew/opt/php@7.4/lib"
+  export CPPFLAGS="-I/opt/homebrew/opt/php@7.4/include"
+  ```
   
    **Intel**
    
-  `export LDFLAGS="-L/usr/local/cellar/php@7.4/lib"`
-  
-  `export CPPFLAGS="-I/usr/local/cellar/php@7.4/include"`
+  ```
+  export LDFLAGS="-L/usr/local/cellar/php@7.4/lib"
+  export CPPFLAGS="-I/usr/local/cellar/php@7.4/include"
+  ```
   
 To restart shivammathur/php/php@7.4 after an upgrade:
 
@@ -153,11 +157,11 @@ To enable PHP in Apache add the following to httpd.conf and restart Apache:
    `LoadModule php7_module /usr/local/opt/php@7.4/lib/httpd/modules/libphp7.so`
    
     
-   `<FilesMatch \.php$>
-   
-       SetHandler application/x-httpd-php
-       
-   </FilesMatch>`
+   ```
+   <FilesMatch \.php$>
+       SetHandler application/x-httpd-php     
+   </FilesMatch>
+   ```
 
 Finally, check DirectoryIndex includes index.php
 
@@ -207,15 +211,11 @@ Eg:
 
 **ARM**
 
-`codesign --force --options runtime --deep --sign "Developer ID Application: Example.com (X3Q1C2345)"`
-
-`"/opt/homebrew/opt/php@7.4/lib/httpd/modules/libphp7.so"`
+`codesign --force --options runtime --deep --sign "Developer ID Application: Example.com (X3Q1C2345)" "/opt/homebrew/opt/php@7.4/lib/httpd/modules/libphp7.so"`
 
 **Intel**
 
-`codesign --force --options runtime --deep --sign "Developer ID Application: Example.com (X3Q1C2345)"`
-
-`"/usr/local/Cellar/php@7.4/7.4.27/lib/httpd/modules/libphp7.so"`
+`codesign --force --options runtime --deep --sign "Developer ID Application: Example.com (X3Q1C2345)" "/usr/local/Cellar/php@7.4/7.4.27/lib/httpd/modules/libphp7.so"`
 
 
 
@@ -256,13 +256,12 @@ Test PHP by placing the following phpinfo.php file in the default home directory
 
 NB. The file should be removed after testing for security reasons
 
-`<?php
-
+```
+<?php
 // Show all information, defaults to INFO_ALL
-
 phpinfo();
-
-?>`
+?>
+```
 
 And view it at:
 
