@@ -310,17 +310,22 @@ sudo chown root "${APACHE2_LOC}/${HTTPD_FILE}"
 ## Resources
 
 How to future proof your apache modules in macOS by signing them with your own certificate authority - Camden Narzt
+
 https://blog.phusion.nl/2020/12/22/future_of_macos_apache_modules/
 
 Installing PHP 7 on macOS 12 Monterey - Tim Perfitt
+
 https://twocanoes.com/knowledge-base/installing-php-7-on-macos-12-monterey/
 
 Signing homebrew PHP module in macOS with your own signing authority
+
 https://www.simplified.guide/macos/apache-php-homebrew-codesign
 
 Signing Mac Software with Apple Developer ID
+
 https://developer.apple.com/developer-id/
 
 PHP no longer bundled with FileMaker Server - Claris Engineering Blog
+
 https://support.claris.com/s/answerview?anum=000035470&language=en_US#a2
 
