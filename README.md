@@ -146,7 +146,7 @@ NB The php.ini and php-fpm.ini file can be found in:
 ## PEAR
 
 This FileMaker Engineering Blog discusses how to install PEAR on macOS.
-It is required for FileMaker but as far as I can tell you can skip this for munkireport.
+It is required for FileMaker Server but as far as I can tell you can skip this for munkireport.
 
 https://support.claris.com/s/answerview?anum=000035470&language=en_US#a2
 
