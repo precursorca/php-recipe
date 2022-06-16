@@ -70,13 +70,18 @@ To enable PHP in Apache add the following to httpd.conf and restart Apache:
     ```
 
 Finally, check DirectoryIndex includes index.php
+
     `DirectoryIndex index.php index.html`
 
 The php.ini and php-fpm.ini file can be found in:
-    **ARM**
-    `/opt/homebrew/etc/php/7.4/`
-    **Intel**
-    `/usr/local/etc/php/7.4/`
+ 
+   **ARM**
+    
+   `/opt/homebrew/etc/php/7.4/`
+    
+   **Intel**
+    
+   `/usr/local/etc/php/7.4/`
 
 php@7.4 is keg-only, which means it was not symlinked into /opt/homebrew,
 because this is an alternate version of another formula.
