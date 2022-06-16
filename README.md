@@ -251,7 +251,7 @@ Add the code signing certificate name after the module path in apache's http.con
 
 **Intel**
 
-`LoadModule php7_module /usr/local/opt/php@7.4/7.4.27/lib/httpd/modules/libphp7.so "Developer ID Application: Example.com (X3Q1C2345)"`
+`LoadModule php7_module /usr/local/opt/php@7.4/7.4.27/lib/httpd/modules/libphp7.so "Developer ID Application: Example.com (ABCDE1234)"`
 
 
 Restart Apache:
@@ -261,7 +261,7 @@ Restart Apache:
 If it worked you should now see:
 
 [so:notice] [pid 27274] 
-AH06662: Allowing module loading process to continue for module at /opt/homebrew/opt/php@7.4/lib/httpd/modules/libphp7.so because module signature matches authority "Developer ID Application: Precursor.ca, Inc. (X5K79C6638)" specified in LoadModule directive
+AH06662: Allowing module loading process to continue for module at /opt/homebrew/opt/php@7.4/lib/httpd/modules/libphp7.so because module signature matches authority "Developer ID Application: Precursor.ca, Inc. (ABCDE1234)" specified in LoadModule directive
 
 Test PHP by placing the following phpinfo.php file in the default home directory of your server at:
 
