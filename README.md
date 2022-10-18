@@ -188,11 +188,11 @@ The php.ini and php-fpm.ini file can be found in:
 
    **ARM**
     
-    `/opt/homebrew/etc/php/7.4/`
+    /opt/homebrew/etc/php/7.4/
     
    **Intel**
     
-    `/usr/local/etc/php/7.4/`
+    /usr/local/etc/php/7.4/
 
 If you have not code-signed php yet you will see this error:
 
