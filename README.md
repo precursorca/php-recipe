@@ -71,7 +71,7 @@ To enable PHP in Apache add the following to httpd.conf and restart Apache:
 
 Finally, check DirectoryIndex includes index.php
 
-    `DirectoryIndex index.php index.html`
+    DirectoryIndex index.php index.html
 
 The php.ini and php-fpm.ini file can be found in:
  
