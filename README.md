@@ -9,9 +9,9 @@ First install Homebrew using the formula:
 
 For reference:  https://wpbeaches.com/installing-homebrew-on-macos-big-sur-11-2-package-manager-for-linux-apps/
 
-And Run these two commands in your terminal to add Homebrew to your PATH: (NB.  edit the user name in RED)
+And Run these two commands in your terminal to add Homebrew to your PATH: (NB.  edit the user name in **bold**)
 
-`echo 'eval "$(/opt/homebrew/bin/brew shellenv)"' >> /Users/precursor/.zprofile`
+`echo 'eval "$(/opt/homebrew/bin/brew shellenv)"' >> /Users/**precursor**/.zprofile`
     
 `eval "$(/opt/homebrew/bin/brew shellenv)"`
 
