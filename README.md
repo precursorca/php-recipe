@@ -141,11 +141,11 @@ NB The php.ini and php-fpm.ini file can be found in:
 
    **ARM**
     
-    `/opt/homebrew/etc/php/7.4/`
+    /opt/homebrew/etc/php/7.4/
     
    **Intel**
    
-    `/usr/local/etc/php/7.4/`
+    /usr/local/etc/php/7.4/
     
 
 ## PEAR
