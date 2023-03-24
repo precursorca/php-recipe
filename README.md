@@ -11,7 +11,7 @@ For reference:  https://wpbeaches.com/installing-homebrew-on-macos-big-sur-11-2-
 
 And Run these two commands in your terminal to add Homebrew to your PATH: (NB.  edit the user_name)
 
-`echo 'eval "$(/opt/homebrew/bin/brew shellenv)"' >> /Users/user_name/.zprofile`
+`(echo 'eval "$(/opt/homebrew/bin/brew shellenv)"' >> /Users/user_name/.zprofile`
     
 `eval "$(/opt/homebrew/bin/brew shellenv)"`
 
