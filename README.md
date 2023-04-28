@@ -46,11 +46,17 @@ First add the PHP formulae:
 Then choose the PHP version (e.g. 7.4 or 8.2)
 
 `brew install shivammathur/php/php@7.4`
+
+or,
+
 `brew install shivammathur/php/php@8.2`
 
 Then link the PHP version:
 
 `brew link --overwrite --force php@7.4`
+
+or,
+
 `brew link --overwrite --force php@8.2`
 
 **NOTE:**
