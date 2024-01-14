@@ -43,21 +43,13 @@ First add the PHP formulae:
 
 `brew tap shivammathur/php`
 
-Then choose the PHP version (e.g. 7.4 or 8.2)
+Then choose the PHP version (e.g. 8.3)
 
-`brew install shivammathur/php/php@7.4`
-
-or,
-
-`brew install shivammathur/php/php@8.2`
+`brew install shivammathur/php/php@8.3`
 
 Then link the PHP version:
 
-`brew link --overwrite --force php@7.4`
-
-or,
-
-`brew link --overwrite --force php@8.2`
+`brew link --overwrite --force php@8.3`
 
 **NOTE:**
 
@@ -66,12 +58,10 @@ Apple's default apache is found at:
 `/etc/apache2`
 
 ==> Caveats
-==> php@7.4 or, php@8.2
+==> php@8.3
 To enable PHP in Apache add the following to httpd.conf and restart Apache:
 
-    LoadModule php7_module /opt/homebrew/opt/php@7.4/lib/httpd/modules/libphp7.so
-    or,
-    LoadModule php_module /opt/homebrew/opt/php@8.2/lib/httpd/modules/libphp.so
+    LoadModule php_module /opt/homebrew/opt/php@8.3/lib/httpd/modules/libphp.so
 
 
     ```
@@ -88,111 +78,65 @@ The php.ini and php-fpm.ini file can be found in:
  
    **ARM**
     
-   `/opt/homebrew/etc/php/7.4/`
-   or,
-   `/opt/homebrew/etc/php/8.2/`
+   `/opt/homebrew/etc/php/8.3/`
     
    **Intel**
     
-   `/usr/local/etc/php/7.4/`
-   or,
-   `/usr/local/etc/php/8.2/`
+   `/usr/local/etc/php/8.3/`
 
 php@7.4 is keg-only, which means it was not symlinked into /opt/homebrew,
 because this is an alternate version of another formula.
 
-If you need to have php@7.4 or php@8.2 first in your PATH, run:
+If you need to have php@8.3 first in your PATH, run:
 
   **ARM**
   
-  `echo 'export PATH="/opt/homebrew/opt/php@7.4/bin:$PATH"' >> ~/.zshrc`
+  `echo 'export PATH="/opt/homebrew/opt/php@8.3/bin:$PATH"' >> ~/.zshrc`
   
-  `echo 'export PATH="/opt/homebrew/opt/php@7.4/sbin:$PATH"' >> ~/.zshrc`
-  
-   **Intel**
-   
-  `echo 'export PATH="/usr/local/cellar/php@7.4/bin:$PATH"' >> ~/.zshrc`
-  
-  `echo 'export PATH="/usr/local/cellar/php@7.4/sbin:$PATH"' >> ~/.zshrc`
-  
-  or,
-  
-  `echo 'export PATH="/opt/homebrew/opt/php@8.2/bin:$PATH"' >> ~/.zshrc`
-  
-  `echo 'export PATH="/opt/homebrew/opt/php@8.2/sbin:$PATH"' >> ~/.zshrc`
+  `echo 'export PATH="/opt/homebrew/opt/php@8.3/sbin:$PATH"' >> ~/.zshrc`
   
    **Intel**
    
-  `echo 'export PATH="/usr/local/cellar/php@8.2/bin:$PATH"' >> ~/.zshrc`
+  `echo 'export PATH="/usr/local/cellar/php@8.3/bin:$PATH"' >> ~/.zshrc`
   
-  `echo 'export PATH="/usr/local/cellar/php@8.2/sbin:$PATH"' >> ~/.zshrc`
+  `echo 'export PATH="/usr/local/cellar/php@8.3/sbin:$PATH"' >> ~/.zshrc`
   
-  
-
-For compilers to find php@7.4 you may need to set:
+For compilers to find php@8.3 you may need to set:
   **ARM**
   
   ```
-  export LDFLAGS="-L/opt/homebrew/opt/php@7.4/lib"
-  export CPPFLAGS="-I/opt/homebrew/opt/php@7.4/include"
+  export LDFLAGS="-L/opt/homebrew/opt/php@8.3/lib"
+  export CPPFLAGS="-I/opt/homebrew/opt/php@8.3/include"
   ```
   
    **Intel**
    
   ```
-  export LDFLAGS="-L/usr/local/cellar/php@7.4/lib"
-  export CPPFLAGS="-I/usr/local/cellar/php@7.4/include"
-  ```
-  or,
-  
-  For compilers to find php@8.2 you may need to set:
-  **ARM**
-  
-  ```
-  export LDFLAGS="-L/opt/homebrew/opt/php@8.2/lib"
-  export CPPFLAGS="-I/opt/homebrew/opt/php@8.2/include"
-  ```
-  
-   **Intel**
-   
-  ```
-  export LDFLAGS="-L/usr/local/cellar/php@8.2/lib"
-  export CPPFLAGS="-I/usr/local/cellar/php@8.2/include"
+  export LDFLAGS="-L/usr/local/cellar/php@8.3/lib"
+  export CPPFLAGS="-I/usr/local/cellar/php@8.3/include"
   ```
 
 To switch between versions after an upgarde:
 
-  `brew link --overwrite --force php@8.2`
+  `brew link --overwrite --force php@8.3`
 
 or,
 
-`brew link --overwrite --force php@8.2`
+`brew link --overwrite --force php@8.3`
   
-To restart shivammathur/php/php@8.2 after an upgrade:
+To restart shivammathur/php/php@8.3 after an upgrade:
 
-  `brew services restart shivammathur/php/php@7.4`
-  
- or,
- 
-   `brew link --overwrite --force php@8.2`
+  `brew link --overwrite --force php@8.2`
   
 Or, if you don't want/need a background service you can just run:
 
   **ARM**
   
-  `/opt/homebrew/opt/php@7.4/sbin/php-fpm --nodaemonize`
-  
-  or,
-  
-  `/opt/homebrew/opt/php@8.2/sbin/php-fpm --nodaemonize`
+  `/opt/homebrew/opt/php@8.3/sbin/php-fpm --nodaemonize`
 
   **Intel**
   
-  `/usr/local/opt/php@7.4/sbin/php-fpm --nodaemonize`
-  
-  or,
-  
-  `/usr/local/opt/php@8.2/sbin/php-fpm --nodaemonize`
+  `/usr/local/opt/php@8.3/sbin/php-fpm --nodaemonize`
 
 
 Restart Terminal and check the version:
@@ -200,21 +144,17 @@ Restart Terminal and check the version:
 `php -v`
 
 To change to another version just repeat the process from the brew install... then unlink and link in the new PHP version by issuing a command like below but with your correct version e.g.:
-brew unlink php && brew link --overwrite --force php@8.1
+brew unlink php && brew link --overwrite --force php@8.3
 
 NB The php.ini and php-fpm.ini file can be found in:
 
    **ARM**
     
-    /opt/homebrew/etc/php/7.4/
-    or,
     /opt/homebrew/etc/php/8.2/
     
    **Intel**
    
-    /usr/local/etc/php/7.4/
-    or,
-    /usr/local/etc/php/8.2/
+   /usr/local/etc/php/8.3/
     
 
 ## PEAR
@@ -232,19 +172,11 @@ To enable PHP in Apache add the following to httpd.conf and restart Apache:
 
    **ARM**
     
-   `LoadModule php7_module /opt/homebrew/opt/php@7.4/lib/httpd/modules/libphp7.so`
-   
-   or,
-   
-  `LoadModule php_module /opt/homebrew/opt/php@8.2/lib/httpd/modules/libphp.so`
+   `LoadModule php_module /opt/homebrew/opt/php@8.3/lib/httpd/modules/libphp.so`
     
    **Intel**
     
-   `LoadModule php7_module /usr/local/opt/php@7.4/lib/httpd/modules/libphp7.so`
-   
-   or,
-   
-   `LoadModule php_module /usr/local/opt/php@8.2/lib/httpd/modules/libphp.so`
+   `LoadModule php_module /usr/local/opt/php@8.3/lib/httpd/modules/libphp.so`
    
     
    ```
@@ -265,29 +197,19 @@ The php.ini and php-fpm.ini file can be found in:
 
    **ARM**
     
-    /opt/homebrew/etc/php/7.4/
-    or,
-    /opt/homebrew/etc/php/8.2/
+    /opt/homebrew/etc/php/8.3/
     
    **Intel**
    
-    /usr/local/etc/php/7.4/
-    or,
-    /usr/local/etc/php/8.2/
+    /usr/local/etc/php/8.3/
 
 
 If you have not code-signed php yet you will see this error:
 
 [so:error] [pid 26552] 
-AH06665: No code signing authority for module at /opt/homebrew/opt/php@7.4/lib/httpd/modules/libphp7.so specified in LoadModule directive.
+AH06665: No code signing authority for module at /opt/homebrew/opt/php@8.3/lib/httpd/modules/libphp.so specified in LoadModule directive.
 httpd: Syntax error on line 188 of /private/etc/apache2/httpd.conf: 
-Code signing absent - not loading module at: /opt/homebrew/opt/php@7.4/lib/httpd/modules/libphp7.so
-
-or,
-
-AH06665: No code signing authority for module at /opt/homebrew/opt/php@8.2/lib/httpd/modules/libphp.so specified in LoadModule directive.
-httpd: Syntax error on line 188 of /private/etc/apache2/httpd.conf: 
-Code signing absent - not loading module at: /opt/homebrew/opt/php@8.2/lib/httpd/modules/libphp.so
+Code signing absent - not loading module at: /opt/homebrew/opt/php@8.3/lib/httpd/modules/libphp.so
 
 
 ## CodeSigning PHP
@@ -297,7 +219,7 @@ You can check the location of your php with this command:
 
 It should return:
 
-`/etc/apache2/other/00-httpd.conf:4:LoadModule php7_module /opt/homebrew/opt/php@7.4/lib/httpd/modules/libphp7.so`
+`/etc/apache2/other/00-httpd.conf:4:LoadModule php_module /opt/homebrew/opt/php@8.3/lib/httpd/modules/libphp7.so`
 
 Now you can code sign that using your Apple Developer ID.
 Similar to: 
@@ -312,19 +234,11 @@ Eg:
 
 **ARM**
 
-`codesign --force --options runtime --deep --sign "Developer ID Application: Example.com (X3Q1C2345)" "/opt/homebrew/opt/php@7.4/lib/httpd/modules/libphp7.so"`
-
-or,
-
-`codesign --force --options runtime --deep --sign "Developer ID Application: Example.com (X3Q1C2345)" "/opt/homebrew/opt/php@8.2/lib/httpd/modules/libphp.so"`
+`codesign --force --options runtime --deep --sign "Developer ID Application: Example.com (X3Q1C2345)" "/opt/homebrew/opt/php@8.3/lib/httpd/modules/libphp.so"`
 
 **Intel**
 
-`codesign --force --options runtime --deep --sign "Developer ID Application: Example.com (X3Q1C2345)" "/usr/local/Cellar/php@7.4/7.4.27/lib/httpd/modules/libphp7.so"`
-
-or,
-
-`codesign --force --options runtime --deep --sign "Developer ID Application: Example.com (X3Q1C2345)" "/usr/local/Cellar/php@8.2/8.2.5/lib/httpd/modules/libphp.so"`
+`codesign --force --options runtime --deep --sign "Developer ID Application: Example.com (X3Q1C2345)" "/usr/local/Cellar/php@8.3/8.3.1/lib/httpd/modules/libphp.so"`
 
 
 
@@ -332,40 +246,22 @@ Verify the code signed signature:
 
 `codesign -dv --verbose=4 "/path/to/Application Name Here.app"`
 
-`codesign -dv --verbose=4 "/opt/homebrew/opt/php@7.4/lib/httpd/modules/libphp7.so"`
-
-or,
-
-`codesign -dv --verbose=4 "/opt/homebrew/opt/php@8.2/lib/httpd/modules/libphp.so"`
+`codesign -dv --verbose=4 "/opt/homebrew/opt/php@8.3/lib/httpd/modules/libphp.so"`
 
 Add the code signing certificate name after the module path in apache's http.conf LoadModule Directive:
 
-`LoadModule php7_module /opt/homebrew/opt/php@7.4/lib/httpd/modules/libphp7.so "Signing Certificate Name"`
-
-or,
-
-`LoadModule php_module /opt/homebrew/opt/php@8.2/lib/httpd/modules/libphp.so "Signing Certificate Name"`
+`LoadModule php_module /opt/homebrew/opt/php@8.3/lib/httpd/modules/libphp.so "Signing Certificate Name"`
 
 **ARM**
 
-`LoadModule php7_module /opt/homebrew/opt/php@7.4/lib/httpd/modules/libphp7.so "Example.com (X3Q1C2345)"`
+`LoadModule php_module /opt/homebrew/opt/php@8.3/lib/httpd/modules/libphp.so "Example.com (X3Q1C2345)"`
 
-`LoadModule php7_module /opt/homebrew/opt/php@7.4/lib/httpd/modules/libphp7.so "Developer ID Application: Example.com (X3Q1C2345)"`
-
-or,
-
-`LoadModule php_module /opt/homebrew/opt/php@8.2/lib/httpd/modules/libphp.so "Example.com (X3Q1C2345)"`
-
-`LoadModule php_module /opt/homebrew/opt/php@8.2/lib/httpd/modules/libphp.so "Developer ID Application: Example.com (X3Q1C2345)"`
+`LoadModule php_module /opt/homebrew/opt/php@8.3/lib/httpd/modules/libphp.so "Developer ID Application: Example.com (X3Q1C2345)"`
 
 
 **Intel**
 
-`LoadModule php7_module /usr/local/opt/php@7.4/7.4.27/lib/httpd/modules/libphp7.so "Developer ID Application: Example.com (ABCDE1234)"`
-
-or,
-
-`LoadModule php_module /usr/local/opt/php@8.2/8.2.5/lib/httpd/modules/libphp.so "Developer ID Application: Example.com (ABCDE1234)"`
+`LoadModule php_module /usr/local/opt/php@8.3/8.3.1/lib/httpd/modules/libphp.so "Developer ID Application: Example.com (ABCDE1234)"`
 
 Restart Apache:
 
@@ -374,12 +270,7 @@ Restart Apache:
 If it worked you should now see:
 
 [so:notice] [pid 27274] 
-AH06662: Allowing module loading process to continue for module at /opt/homebrew/opt/php@7.4/lib/httpd/modules/libphp7.so because module signature matches authority "Developer ID Application: Example.com (ABCDE1234)" specified in LoadModule directive
-
-or,
-
-[so:notice] [pid 27274] 
-AH06662: Allowing module loading process to continue for module at /opt/homebrew/opt/php@8.2/lib/httpd/modules/libphp.so because module signature matches authority "Developer ID Application: Example.com (ABCDE1234)" specified in LoadModule directive
+AH06662: Allowing module loading process to continue for module at /opt/homebrew/opt/php@8.3/lib/httpd/modules/libphp.so because module signature matches authority "Developer ID Application: Example.com (ABCDE1234)" specified in LoadModule directive
 
 
 Test PHP by placing the following phpinfo.php file in the default home directory of your server at:
