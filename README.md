@@ -84,7 +84,7 @@ The php.ini and php-fpm.ini file can be found in:
     
    `/usr/local/etc/php/8.3/`
 
-php@7.4 is keg-only, which means it was not symlinked into /opt/homebrew,
+php@8.3 is keg-only, which means it was not symlinked into /opt/homebrew,
 because this is an alternate version of another formula.
 
 If you need to have php@8.3 first in your PATH, run:
@@ -116,7 +116,7 @@ For compilers to find php@8.3 you may need to set:
   export CPPFLAGS="-I/usr/local/cellar/php@8.3/include"
   ```
 
-To switch between versions after an upgarde:
+To switch between versions after an upgrade:
 
   `brew link --overwrite --force php@8.3`
 
