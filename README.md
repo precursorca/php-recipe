@@ -1,9 +1,21 @@
 # php-recipe
-## Installing and code-signing PHP
+## Installing and code-signing PHP for macOS apache
 
-## Homebrew
+## Overview
 
-First install Homebrew using the formula:
+This recipe covers:
+- how to install PHP via Homebrew on macOS for the macOS built-in apache.
+
+- how to codesign PHP on macOS so macOS built-in apache will be able to access it.
+  
+- how to backup and restore PHP before and after a macOS update/upgrade
+
+- how to update PHP after the original installation
+
+
+## Installing Homebrew
+
+To install PHP you will need Homebre so first install Homebrew using the formula:
 
 `/bin/bash -c "$(curl -fsSL https://raw.githubusercontent.com/Homebrew/install/HEAD/install.sh)"`
 
@@ -19,25 +31,32 @@ Then you can check for install issues by running:
 
 `brew doctor`
 
-**On Intel Macs Homebrew can be found at:**
-
-`/usr/local/homebrew`
-
-**And on Apple Silicon Macs Homebrew lives at:**
+**On Apple Silicon Macs Homebrew lives at:**
 
 `/opt/homebrew`
+
+**And on Intel Macs Homebrew can be found at:**
+
+`/usr/local/homebrew`
 
 You can check the Homebrew config by running:
 
 `brew config`
+
+To keep Homebrew up-to-date make sure to run:
+
+`brew update`
+
+and,
+
+`brew upgrade`
 
 To remove Homebrew and all the packages it has installed use:
 
 `/bin/bash -c "$(curl -fsSL https://raw.githubusercontent.com/Homebrew/install/HEAD/uninstall.sh)"`
 
 
-
-## PHP
+## Installing PHP
 
 First add the PHP formulae:
 
@@ -56,6 +75,9 @@ Then link the PHP version:
 Apple's default apache is found at:
 
 `/etc/apache2`
+
+When you install you will be advised on how to enable PHP using the LoadModule line in apache's http conf file.
+NOTE: you will have to codesign PHP before it will actually load (see the next section for how to CodeSign PHP)
 
 ==> Caveats
 ==> php@8.3
@@ -119,14 +141,10 @@ For compilers to find php@8.3 you may need to set:
 To switch between versions after an upgrade:
 
   `brew link --overwrite --force php@8.3`
-
-or,
-
-`brew link --overwrite --force php@8.3`
   
 To restart shivammathur/php/php@8.3 after an upgrade:
 
-  `brew link --overwrite --force php@8.2`
+  `brew link --overwrite --force php@8.3`
   
 Or, if you don't want/need a background service you can just run:
 
@@ -146,16 +164,6 @@ Restart Terminal and check the version:
 To change to another version just repeat the process from the brew install... then unlink and link in the new PHP version by issuing a command like below but with your correct version e.g.:
 brew unlink php && brew link --overwrite --force php@8.3
 
-NB The php.ini and php-fpm.ini file can be found in:
-
-   **ARM**
-    
-    /opt/homebrew/etc/php/8.2/
-    
-   **Intel**
-   
-   /usr/local/etc/php/8.3/
-    
 
 ## PEAR
 
@@ -168,7 +176,7 @@ https://support.claris.com/s/answerview?anum=000035470&language=en_US#a2
 
 ## Apache
 
-To enable PHP in Apache add the following to httpd.conf and restart Apache:
+To enable PHP in Apache first make sure you codesign PHP (see below) and then add the following to httpd.conf and restart Apache:
 
    **ARM**
     
@@ -217,9 +225,9 @@ You can check the location of your php with this command:
 
 `grep -nir "^loadmodule.*php" /etc/apache2`
 
-It should return:
+If you have successfully codesigned PHP it should return:
 
-`/etc/apache2/other/00-httpd.conf:4:LoadModule php_module /opt/homebrew/opt/php@8.3/lib/httpd/modules/libphp7.so`
+`/etc/apache2/httpd.conf:190:LoadModule php_module /opt/homebrew/opt/php@8.3/lib/httpd/modules/libphp.so "Developer ID Application: Example.com (ABCDE1234)"`
 
 Now you can code sign that using your Apple Developer ID.
 Similar to: 
@@ -228,13 +236,13 @@ https://derflounder.wordpress.com/2019/04/10/notarizing-automator-applications/
 
 e.g.
 
-`codesign --force --options runtime --deep --sign "Developer ID Application: Name Here (YG45FDT45F)" "/path/to/Application Name Here.app"`
+`codesign --force --options runtime --deep --sign "Developer ID Application: Example.com (ABCDE1234)" "/path/to/Application Name Here.app"`
 
 Eg:
 
 **ARM**
 
-`codesign --force --options runtime --deep --sign "Developer ID Application: Example.com (X3Q1C2345)" "/opt/homebrew/opt/php@8.3/lib/httpd/modules/libphp.so"`
+`codesign --force --options runtime --deep --sign "Developer ID Application: Example.com (ABCDE1234)" "/opt/homebrew/opt/php@8.3/lib/httpd/modules/libphp.so"`
 
 **Intel**
 
@@ -293,10 +301,10 @@ http://localhost/phpinfo.php
 
 ## Backup and Restore
 
-The Apache HTTP.conf file could get overwritten by Apple on security or OS updates.
+The Apache HTTP.conf file could get overwritten by Apple on security or OS updates (usually only on major OS upgrades but you can never be sure).
 
 You can backup and restore the http.conf file with the commands in my reverse proxy tutorial.
-Or you can do it manually.
+Or you can do it manually. The scripts below will backup to and restore from /Users/Shared.
 
 
 **To backup:**
@@ -306,6 +314,7 @@ Or you can do it manually.
 #Set the variables
 THEFILE="/private/etc/apache2/httpd.conf"
 APACHE2_LOC="/private/etc/apache2"
+BACKUP_LOC="/Users/Shared/"
 # Backup httpd.conf
 sudo cp "${APACHE2_LOC}/${HTTPD_FILE}" "${BACKUP_LOC}${HTTPD_FILE}"
 ```
@@ -317,10 +326,34 @@ sudo cp "${APACHE2_LOC}/${HTTPD_FILE}" "${BACKUP_LOC}${HTTPD_FILE}"
 #Set the variables
 THEFILE="/private/etc/apache2/httpd.conf"
 APACHE2_LOC="/private/etc/apache2"
+BACKUP_LOC="/Users/Shared/"
 #Restore httpd.conf"
 sudo cp "${BACKUP_LOC}${HTTPD_FILE}" "${APACHE2_LOC}/${HTTPD_FILE}"
 sudo chown root "${APACHE2_LOC}/${HTTPD_FILE}"
 ```
+
+## Updating PHP
+
+The following describes how to update PHP (eg. from PHP 8.3.10 to 8.3.12)
+
+First make sure your homebrew instance is good:
+
+`brew doctor`
+
+Then update and upgrade brew to its latest version:
+
+`brew update`
+
+and
+
+`brew upgrade`
+
+Now you are ready to update PHP to its latest version:
+
+`brew upgrade shivammathur/php/php@8.3`
+
+If you had a code-signed PHP 8.3.10 before you started you will now have an unsigned PHP 8.3.12 and will have to codesign it and restart apache (see above in the Codesigning section).
+
 
 ## Resources
 
