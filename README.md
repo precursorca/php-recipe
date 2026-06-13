@@ -1,5 +1,5 @@
 # php-recipe
-## Installing and code-signing PHP for macOS apache
+## Installing and code-signing PHP for macOS apache and FileMaker Server
 
 ## Overview
 
@@ -11,6 +11,8 @@ This recipe covers:
 - how to backup and restore PHP before and after a macOS update/upgrade
 
 - how to update PHP after the original installation
+
+- Special instructions for FileMaker Server ≥26
 
 
 ## Installing Homebrew
@@ -56,19 +58,19 @@ To remove Homebrew and all the packages it has installed use:
 `/bin/bash -c "$(curl -fsSL https://raw.githubusercontent.com/Homebrew/install/HEAD/uninstall.sh)"`
 
 
-## Installing PHP
+## Installing PHP for macOS apache and FileMaker Server ≤22
 
 First add the PHP formulae:
 
 `brew tap shivammathur/php`
 
-Then choose the PHP version (e.g. 8.3)
+Then choose the PHP version (e.g. 8.5)
 
-`brew install shivammathur/php/php@8.3`
+`brew install shivammathur/php/php@8.5`
 
 Then link the PHP version:
 
-`brew link --overwrite --force php@8.3`
+`brew link --overwrite --force php@8.5`
 
 **NOTE:**
 
@@ -80,10 +82,10 @@ When you install you will be advised on how to enable PHP using the LoadModule l
 NOTE: you will have to codesign PHP before it will actually load (see the next section for how to CodeSign PHP)
 
 ==> Caveats
-==> php@8.3
+==> php@8.5
 To enable PHP in Apache add the following to httpd.conf and restart Apache:
 
-    LoadModule php_module /opt/homebrew/opt/php@8.3/lib/httpd/modules/libphp.so
+    LoadModule php_module /opt/homebrew/opt/php@8.5/lib/httpd/modules/libphp.so
 
 
     ```
@@ -100,61 +102,61 @@ The php.ini and php-fpm.ini file can be found in:
  
    **ARM**
     
-   `/opt/homebrew/etc/php/8.3/`
+   `/opt/homebrew/etc/php/8.5/`
     
    **Intel**
     
-   `/usr/local/etc/php/8.3/`
+   `/usr/local/etc/php/8.5/`
 
-php@8.3 is keg-only, which means it was not symlinked into /opt/homebrew,
+php@8.5 is keg-only, which means it was not symlinked into /opt/homebrew,
 because this is an alternate version of another formula.
 
-If you need to have php@8.3 first in your PATH, run:
+If you need to have php@8.5 first in your PATH, run:
 
   **ARM**
   
-  `echo 'export PATH="/opt/homebrew/opt/php@8.3/bin:$PATH"' >> ~/.zshrc`
+  `echo 'export PATH="/opt/homebrew/opt/php@8.5/bin:$PATH"' >> ~/.zshrc`
   
-  `echo 'export PATH="/opt/homebrew/opt/php@8.3/sbin:$PATH"' >> ~/.zshrc`
+  `echo 'export PATH="/opt/homebrew/opt/php@8.5/sbin:$PATH"' >> ~/.zshrc`
   
    **Intel**
    
-  `echo 'export PATH="/usr/local/cellar/php@8.3/bin:$PATH"' >> ~/.zshrc`
+  `echo 'export PATH="/usr/local/cellar/php@8.5/bin:$PATH"' >> ~/.zshrc`
   
-  `echo 'export PATH="/usr/local/cellar/php@8.3/sbin:$PATH"' >> ~/.zshrc`
+  `echo 'export PATH="/usr/local/cellar/php@8.5/sbin:$PATH"' >> ~/.zshrc`
   
-For compilers to find php@8.3 you may need to set:
+For compilers to find php@8.5 you may need to set:
   **ARM**
   
   ```
-  export LDFLAGS="-L/opt/homebrew/opt/php@8.3/lib"
-  export CPPFLAGS="-I/opt/homebrew/opt/php@8.3/include"
+  export LDFLAGS="-L/opt/homebrew/opt/php@8.5/lib"
+  export CPPFLAGS="-I/opt/homebrew/opt/php@8.5/include"
   ```
   
    **Intel**
    
   ```
-  export LDFLAGS="-L/usr/local/cellar/php@8.3/lib"
-  export CPPFLAGS="-I/usr/local/cellar/php@8.3/include"
+  export LDFLAGS="-L/usr/local/cellar/php@8.5/lib"
+  export CPPFLAGS="-I/usr/local/cellar/php@8.5/include"
   ```
 
 To switch between versions after an upgrade:
 
-  `brew link --overwrite --force php@8.3`
+  `brew link --overwrite --force php@8.5`
   
-To restart shivammathur/php/php@8.3 after an upgrade:
+To restart shivammathur/php/php@8.5 after an upgrade:
 
-  `brew link --overwrite --force php@8.3`
+  `brew link --overwrite --force php@8.5`
   
 Or, if you don't want/need a background service you can just run:
 
   **ARM**
   
-  `/opt/homebrew/opt/php@8.3/sbin/php-fpm --nodaemonize`
+  `/opt/homebrew/opt/php@8.5/sbin/php-fpm --nodaemonize`
 
   **Intel**
   
-  `/usr/local/opt/php@8.3/sbin/php-fpm --nodaemonize`
+  `/usr/local/opt/php@8.5/sbin/php-fpm --nodaemonize`
 
 
 Restart Terminal and check the version:
@@ -180,11 +182,11 @@ To enable PHP in Apache first make sure you codesign PHP (see below) and then ad
 
    **ARM**
     
-   `LoadModule php_module /opt/homebrew/opt/php@8.3/lib/httpd/modules/libphp.so`
+   `LoadModule php_module /opt/homebrew/opt/php@8.5/lib/httpd/modules/libphp.so`
     
    **Intel**
     
-   `LoadModule php_module /usr/local/opt/php@8.3/lib/httpd/modules/libphp.so`
+   `LoadModule php_module /usr/local/opt/php@8.5/lib/httpd/modules/libphp.so`
    
     
    ```
@@ -205,19 +207,19 @@ The php.ini and php-fpm.ini file can be found in:
 
    **ARM**
     
-    /opt/homebrew/etc/php/8.3/
+    /opt/homebrew/etc/php/8.5/
     
    **Intel**
    
-    /usr/local/etc/php/8.3/
+    /usr/local/etc/php/8.5/
 
 
 If you have not code-signed php yet you will see this error:
 
 [so:error] [pid 26552] 
-AH06665: No code signing authority for module at /opt/homebrew/opt/php@8.3/lib/httpd/modules/libphp.so specified in LoadModule directive.
+AH06665: No code signing authority for module at /opt/homebrew/opt/php@8.5/lib/httpd/modules/libphp.so specified in LoadModule directive.
 httpd: Syntax error on line 188 of /private/etc/apache2/httpd.conf: 
-Code signing absent - not loading module at: /opt/homebrew/opt/php@8.3/lib/httpd/modules/libphp.so
+Code signing absent - not loading module at: /opt/homebrew/opt/php@8.5/lib/httpd/modules/libphp.so
 
 
 ## CodeSigning PHP
@@ -242,11 +244,11 @@ Eg:
 
 **ARM**
 
-`codesign --force --options runtime --deep --sign "Developer ID Application: Example.com (ABCDE1234)" "/opt/homebrew/opt/php@8.3/lib/httpd/modules/libphp.so"`
+`codesign --force --options runtime --deep --sign "Developer ID Application: Example.com (ABCDE1234)" "/opt/homebrew/opt/php@8.5/lib/httpd/modules/libphp.so"`
 
 **Intel**
 
-`codesign --force --options runtime --deep --sign "Developer ID Application: Example.com (X3Q1C2345)" "/usr/local/Cellar/php@8.3/8.3.1/lib/httpd/modules/libphp.so"`
+`codesign --force --options runtime --deep --sign "Developer ID Application: Example.com (X3Q1C2345)" "/usr/local/Cellar/php@8.5/8.5.3/lib/httpd/modules/libphp.so"`
 
 
 
@@ -254,22 +256,22 @@ Verify the code signed signature:
 
 `codesign -dv --verbose=4 "/path/to/Application Name Here.app"`
 
-`codesign -dv --verbose=4 "/opt/homebrew/opt/php@8.3/lib/httpd/modules/libphp.so"`
+`codesign -dv --verbose=4 "/opt/homebrew/opt/php@8.5/lib/httpd/modules/libphp.so"`
 
 Add the code signing certificate name after the module path in apache's http.conf LoadModule Directive:
 
-`LoadModule php_module /opt/homebrew/opt/php@8.3/lib/httpd/modules/libphp.so "Signing Certificate Name"`
+`LoadModule php_module /opt/homebrew/opt/php@8.5/lib/httpd/modules/libphp.so "Signing Certificate Name"`
 
 **ARM**
 
-`LoadModule php_module /opt/homebrew/opt/php@8.3/lib/httpd/modules/libphp.so "Example.com (X3Q1C2345)"`
+`LoadModule php_module /opt/homebrew/opt/php@8.5/lib/httpd/modules/libphp.so "Example.com (X3Q1C2345)"`
 
-`LoadModule php_module /opt/homebrew/opt/php@8.3/lib/httpd/modules/libphp.so "Developer ID Application: Example.com (X3Q1C2345)"`
+`LoadModule php_module /opt/homebrew/opt/php@8.5/lib/httpd/modules/libphp.so "Developer ID Application: Example.com (X3Q1C2345)"`
 
 
 **Intel**
 
-`LoadModule php_module /usr/local/opt/php@8.3/8.3.1/lib/httpd/modules/libphp.so "Developer ID Application: Example.com (ABCDE1234)"`
+`LoadModule php_module /usr/local/opt/php@8.5/8.5.3/lib/httpd/modules/libphp.so "Developer ID Application: Example.com (ABCDE1234)"`
 
 Restart Apache:
 
@@ -278,7 +280,7 @@ Restart Apache:
 If it worked you should now see:
 
 [so:notice] [pid 27274] 
-AH06662: Allowing module loading process to continue for module at /opt/homebrew/opt/php@8.3/lib/httpd/modules/libphp.so because module signature matches authority "Developer ID Application: Example.com (ABCDE1234)" specified in LoadModule directive
+AH06662: Allowing module loading process to continue for module at /opt/homebrew/opt/php@8.5/lib/httpd/modules/libphp.so because module signature matches authority "Developer ID Application: Example.com (ABCDE1234)" specified in LoadModule directive
 
 
 Test PHP by placing the following phpinfo.php file in the default home directory of your server at:
@@ -334,7 +336,7 @@ sudo chown root "${APACHE2_LOC}/${HTTPD_FILE}"
 
 ## Updating PHP
 
-The following describes how to update PHP (eg. from PHP 8.3.10 to 8.3.12)
+The following describes how to update PHP (eg. from PHP 8.5.3 to 8.5.4)
 
 First make sure your homebrew instance is good:
 
@@ -350,11 +352,78 @@ and
 
 Now you are ready to update PHP to its latest version:
 
-`brew upgrade shivammathur/php/php@8.3`
+`brew upgrade shivammathur/php/php@8.5`
 
-If you had a code-signed PHP 8.3.10 before you started you will now have an unsigned PHP 8.3.12 and will have to codesign it and restart apache (see above in the Codesigning section).
+If you had a code-signed PHP 8.5.3 before you started you will now have an unsigned PHP 8.5.4 and will have to codesign it and restart apache (see above in the Codesigning section).
 
 
+## Installing PHP for FileMaker Server ≥26
+
+Follow the instructions for the earlier FileMaker Server above but you do NOT have to codesign the php module: libphp.so
+
+This is because FMS 26 will not load that module with its default mpm_event_module. It in fact recommends that you comment that out and instead enable the mpm_prefork_module.
+
+That will not work because FMS 26 will automatically uncomment the mpm_event_module and it won't load two different mpm modules so the prefork module cannot be loaded.
+
+So an alternat method of using your php must be employed.
+
+It's actually easy.
+
+Instead of using:
+
+    ```
+    <FilesMatch \.php$>
+        SetHandler application/x-httpd-php
+    </FilesMatch>
+    ```
+
+You will add this instead (and let fcgi do it):
+
+    ```
+    <FilesMatch "\.php$">
+    	SetHandler "proxy:fcgi://127.0.0.1:9000"
+    	Require all granted
+    </FilesMatch>
+    ```
+    
+    ```
+    <FilesMatch "\.phps$">
+        SetHandler "proxy:fcgi://127.0.0.1:9000"
+        Require all granted
+    </FilesMatch>
+    ```
+
+**NOTE:**
+
+Apple's default apache is found at:
+
+`/etc/apache2`
+
+When you install you will be advised on how to enable PHP using the LoadModule line in apache's http conf file.
+NOTE: you will have to codesign PHP before it will actually load (see the next section for how to CodeSign PHP)
+
+==> Caveats
+==> php@8.5
+To enable PHP in Apache add the following to httpd.conf and restart Apache:
+
+    LoadModule php_module /opt/homebrew/opt/php@8.5/lib/httpd/modules/libphp.so
+
+
+    ```
+    <FilesMatch \.php$>
+        SetHandler application/x-httpd-php
+    </FilesMatch>
+    ```
+
+And also, check DirectoryIndex includes index.php
+
+    DirectoryIndex index.php index.html
+
+The correct way to restart FMS 26 apache is:
+
+`sudo /Library/FileMaker\ Server/HTTPServer/bin/httpdctl restart`
+
+    
 ## Resources
 
 How to future proof your apache modules in macOS by signing them with your own certificate authority - Camden Narzt
