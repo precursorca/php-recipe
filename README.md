@@ -393,6 +393,15 @@ You will add this instead (and let fcgi do it):
     </FilesMatch>
     ```
 
+And to enable PHP you will have to add this code to the bottom of the FileMaker Server/HTTPServer/conf/httpd.conf.2.4
+
+   ```
+  #Homebrew PHP settings
+  AddType application/x-httpd-php .php
+  AddType application/x-httpd-php-source .phps
+  DirectoryIndex index.html index.php
+  ```
+
 **NOTE:**
 
 Apple's default apache is found at:
